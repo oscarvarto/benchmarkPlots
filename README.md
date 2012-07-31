@@ -51,7 +51,7 @@ Multiple main classes detected, select one to run:
      * Animate    : Double left click
      * Screenshot : Press 's' 
 
-You can watch some images in the [wiki](/wiki/).
+You can watch some images in the [wiki](https://github.com/oscarvarto/benchmarkPlots/wiki).
 
 Using Eclipse to add more plots
 -------------------------------

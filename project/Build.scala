@@ -14,7 +14,7 @@ object Build extends Build {
     file("."),
     settings = commonSettings ++ Seq(
       libraryDependencies ++= Seq(
-	 "org.jzy3d" % "jzy3d" % "0.9" from "http://www.jzy3d.org/release/0.9a3/org.jzy3d-0.9.jar" 
+	"org.jzy3d" % "jzy3d" % "0.9" from "http://www.jzy3d.org/release/0.9a3/org.jzy3d-0.9.jar" 
       ),
       mergeStrategy in assembly <<= (mergeStrategy in assembly) { (old) =>
 	{
@@ -22,7 +22,8 @@ object Build extends Build {
           case x => old(x)
 	}
       } 
-    ) ++ 
+    ) 
+    ++ 
     addZipJar("org.jzy3d" % "jzy3d-deps" % "0.9" from "http://www.jzy3d.org/release/0.9a3/org.jzy3d-0.9-dependencies.zip", Compile) ++
     addZipJar("org.jzy3d" % "jzy3d-native" % "0.9" from "http://www.jzy3d.org/release/0.9a3/org.jzy3d-0.9-binaries-%s.zip".format(arch), Compile) 
   )
@@ -31,7 +32,7 @@ object Build extends Build {
     Defaults.defaultSettings ++ 
   Seq(
     organization := "mx.umich.fie.dep",
-    scalaVersion := "2.10.0-M6",
+    scalaVersion := "2.9.2",
     scalacOptions ++= Seq("-unchecked", "-deprecation"),
     libraryDependencies ++= Seq(
       Dependencies.Compile.Scalaz,
@@ -48,12 +49,12 @@ object Build extends Build {
 
     object Compile {
       val Config = "com.typesafe" % "config" % "0.5.0"
-      val Scalaz = "org.scalaz" % "scalaz-core_2.10.0-M6" % "7.0.0-M1"
+      val Scalaz = "org.scalaz" %% "scalaz-core" % "7.0.0-M3"
     }
 
     object Test {
-      val Specs2 = "org.specs2" %% "specs2" % "1.11" % "test"
-      val ScalaCheck = "org.scalacheck" % "scalacheck_2.10.0-M6" % "1.10.0" % "test"
+      val Specs2 = "org.specs2" %% "specs2" % "1.12.1" % "test"
+      val ScalaCheck = "org.scalacheck" %% "scalacheck" % "1.10.0" % "test"
       val Mockito = "org.mockito" % "mockito-all" % "1.9.5-rc1" % "test"
       val Hamcrest = "org.hamcrest" % "hamcrest-all" % "1.3" % "test"
     }
@@ -68,16 +69,16 @@ object Extra extends Plugin {
     libraryDependencies += module,
     unmanagedJars in config <++= (update, cacheDirectory, target) map {
       (updateReport, cache, target) =>
-	val moduleReports = updateReport.configuration(config.name).get.modules
+      val moduleReports = updateReport.configuration(config.name).get.modules
       moduleReports.find(mr => (mr.module.organization, mr.module.name) == (module.organization, module.name)) match {
 	case Some(x) =>
-	  val zipFile = x.artifacts.head._2	
+	val zipFile = x.artifacts.head._2	
 	val cachedUnzip = FileFunction.cached(cache / "zipJar", inStyle = FilesInfo.lastModified, outStyle = FilesInfo.exists) { (in: Set[File]) =>
           IO.unzip(in.head, target)
 	}
 	cachedUnzip(Set(zipFile)).toSeq
 	case None =>
-	  sys.error("could not find artifact [%s] in [%s]".format(module, moduleReports.map(_.module).mkString("\n")))
+	sys.error("could not find artifact [%s] in [%s]".format(module, moduleReports.map(_.module).mkString("\n")))
       }
     }
   )

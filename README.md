@@ -12,13 +12,6 @@ Requirements
 Check that your hardware meets the minimum requirements (http://jogamp.org/jogl/www/). Hopefully this won't be an issue for you.
 
 * You need sbt 0.12.0 or higher.
-* Since **jzy3d needs native libraries**, you need to change this line of project/Build.scala:
-
-```scala
-    val arch = "macosx" // "windows-amd64" "windows-i586" "linux-amd64" "linux-i586" 
-```
-
-* Even when the project compiles with JDK 1.7, **you need Java SE 1.6 to run it** properly.
 
 Building and watching some beautiful & interactive plots
 --------------------------------------------------------
@@ -43,7 +36,6 @@ Multiple main classes detected, select one to run:
 
    *  `sbt assembly` You'll get `target/jzy3d-assembly-0.1.0-SNAPSHOT.jar`
    * `cd target`
-   * Don't forget to use Java SE 1.6: `java -cp jzy3d-assembly-0.1.0-SNAPSHOT.jar mx.umich.fie.dep.plots.surface.Schwefel`
    
      * Rotate     : Left click and drag mouse
      * Scale      : Roll mouse wheel
@@ -67,12 +59,6 @@ Unfortunately, on Mac OS X UTF-8 is not the default encoding (AFAIK it is MacRom
 
 Acknowledgements
 ----------------
-
-**(1 Corinthians 4:7)**
-
- *For who makes you to differ from another? Indeed, what do you have that you did not receive? If, now, you did indeed receive [it], why do you boast as though you did not receive [it]?*
-
-Now **I must say THANKS**:
 
 * **Martin Pernollet** is a great guy! [jzy3d](http://www.jzy3d.org/index.php) is an open source (BSD) java library that allows a rapid display of 3d scientific data.
 

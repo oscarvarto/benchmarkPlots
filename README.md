@@ -1,7 +1,7 @@
 Benchmark Problem Plots for Computational Intelligence
 ======================================================
 
-This project uses jzy3d (that depends on Java Binding for the OPENGL API) to make some beautiful 3D interactive plots for classical benchmark functions used to evaluate the performance of optimization algorithms for unconstrained optimization.
+This project uses jzy3d (that depends on Java Binding for the OpenGL API) to make some beautiful 3D interactive plots for classical benchmark functions used to evaluate the performance of optimization algorithms for unconstrained optimization.
 
 Requirements
 ------------

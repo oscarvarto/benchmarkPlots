@@ -1,4 +1,4 @@
-package mx.umich.fie.dep.plots
+package umich.jzy3d
 
 import java.awt.Component
 import java.awt.Rectangle
@@ -8,7 +8,7 @@ import org.eclipse.swt.widgets.Shell
 import org.jzy3d.bridge.swt.Bridge
 import org.jzy3d.chart.Chart
 import org.jzy3d.global.Settings
-import org.jzy3d.ui.ChartLauncher
+import org.jzy3d.chart.ChartLauncher
 
 object Launcher {
   def openDemo(demo: IDemo) {

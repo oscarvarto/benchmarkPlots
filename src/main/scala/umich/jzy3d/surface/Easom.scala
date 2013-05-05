@@ -1,7 +1,6 @@
-package mx.umich.fie.dep.plots.surface
+package umich.jzy3d.surface
 
-import mx.umich.fie.dep.plots.AbstractDemo
-import mx.umich.fie.dep.plots.Launcher
+import umich.jzy3d.Launcher
 import org.jzy3d.chart.Chart
 import org.jzy3d.plot3d.primitives.Shape
 import org.jzy3d.plot3d.builder.Builder
@@ -9,26 +8,30 @@ import org.jzy3d.plot3d.builder.Mapper
 import org.jzy3d.plot3d.builder.concrete.OrthonormalGrid
 import org.jzy3d.plot3d.rendering.legends.colorbars.ColorbarLegend
 import org.jzy3d.colors.ColorMapper
-import org.jzy3d.colors.Color
-import org.jzy3d.colors.colormaps.ColorMapRainbow
+import org.jzy3d.plot3d.rendering.canvas.Quality
 import org.jzy3d.maths.Range
 import org.jzy3d.plot3d.rendering.canvas.Quality
-import org.jzy3d.chart.controllers.keyboard.ChartKeyController
+import org.jzy3d.colors.colormaps.ColorMapRainbow
+import umich.jzy3d.AbstractDemo
 
-object Schwefel {
+object Easom {
   def main(args: Array[String]) {
-    Launcher.openDemo(new Schwefel)
+    Launcher.openDemo(new Easom)
   }
 }
 
-class Schwefel extends AbstractDemo {
+class Easom extends AbstractDemo {
   def init() {
     import math._
-    import scalaz._, Scalaz._
 
-    val f = (sin _ ⋘ sqrt ⋘ abs)
-    val mapper: Mapper = (x: Double, y: Double) => x * f(x) + y * f(y) + 837.9658
-    val range = new Range(-500.0, 500.0)
+    val mapper: Mapper = (x: Double, y: Double) ⇒ {
+      val term1 = x - Pi
+      val term2 = y - Pi
+      val exponent = -term1 * term1 - term2 * term2
+      val z = -cos(x) * cos(y) * exp(exponent)
+      z
+    }
+    val range = new Range(0.0, 6.2832)
     val steps = 80
     val surface: Shape = Builder.buildOrthonormal(new OrthonormalGrid(range, steps, range, steps), mapper).asInstanceOf[Shape]
     import surface._
@@ -38,7 +41,6 @@ class Schwefel extends AbstractDemo {
     //setWireframeColor(Color.BLACK)
     chart = new Chart(Quality.Advanced)
     chart.getScene.getGraph.add(surface)
-    chart.addController(new ChartKeyController())
-    //setLegend(new ColorbarLegend(surface, chart.getView.getAxe.getLayout))
+    setLegend(new ColorbarLegend(surface, chart.getView.getAxe.getLayout))
   }
 }

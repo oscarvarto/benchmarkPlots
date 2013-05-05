@@ -1,4 +1,4 @@
-package mx.umich.fie.dep.plots
+package umich.jzy3d
 import org.jzy3d.chart.Chart
 
 trait IDemo {

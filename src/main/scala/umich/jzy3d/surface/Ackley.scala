@@ -1,7 +1,7 @@
-package mx.umich.fie.dep.plots.surface
+package umich.jzy3d.surface
 
-import mx.umich.fie.dep.plots.AbstractDemo
-import mx.umich.fie.dep.plots.Launcher
+import umich.jzy3d.AbstractDemo
+import umich.jzy3d.Launcher
 import org.jzy3d.chart.Chart
 import org.jzy3d.plot3d.primitives.Shape
 import org.jzy3d.plot3d.builder.Builder
@@ -25,7 +25,7 @@ class Ackley extends AbstractDemo {
   def init() {
     import math._
 
-    val mapper: Mapper = (x: Double, y: Double) => {
+    val mapper: Mapper = (x: Double, y: Double) ⇒ {
       val exponent1 = -0.2 * sqrt((x * x + y * y) / 2.0)
       val exponent2 = (cos(2 * Pi * x) + cos(2 * Pi * y)) / 2.0
       val z = -20.0 * exp(exponent1) - exp(exponent2) + 20 + E

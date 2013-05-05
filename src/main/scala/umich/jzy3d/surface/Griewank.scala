@@ -1,6 +1,7 @@
-package mx.umich.fie.dep.plots.surface
+package umich.jzy3d.surface
 
-import mx.umich.fie.dep.plots.Launcher
+import umich.jzy3d.AbstractDemo
+import umich.jzy3d.Launcher
 import org.jzy3d.chart.Chart
 import org.jzy3d.plot3d.primitives.Shape
 import org.jzy3d.plot3d.builder.Builder
@@ -8,30 +9,29 @@ import org.jzy3d.plot3d.builder.Mapper
 import org.jzy3d.plot3d.builder.concrete.OrthonormalGrid
 import org.jzy3d.plot3d.rendering.legends.colorbars.ColorbarLegend
 import org.jzy3d.colors.ColorMapper
-import org.jzy3d.plot3d.rendering.canvas.Quality
+import org.jzy3d.colors.Color
+import org.jzy3d.colors.colormaps.ColorMapRainbow
 import org.jzy3d.maths.Range
 import org.jzy3d.plot3d.rendering.canvas.Quality
-import org.jzy3d.colors.colormaps.ColorMapRainbow
-import mx.umich.fie.dep.plots.AbstractDemo
 
-object Easom {
+object Griewank {
   def main(args: Array[String]) {
-    Launcher.openDemo(new Easom)
+    Launcher.openDemo(new Griewank)
   }
 }
 
-class Easom extends AbstractDemo {
-  def init() {
-    import math._
+class Griewank extends AbstractDemo {
+  import math._
+  val sqrt2 = sqrt(2.0)
 
-    val mapper: Mapper = (x: Double, y: Double) => {
-      val term1 = x - Pi
-      val term2 = y - Pi
-      val exponent = -term1 * term1 - term2 * term2
-      val z = -cos(x) * cos(y) * exp(exponent)
+  def init() {
+    val mapper: Mapper = (x: Double, y: Double) ⇒ {
+      val term1 = (x * x + y * y) / 4000.0
+      val term2 = cos(x) * cos(y / sqrt2)
+      val z = 1 + term1 - term2
       z
     }
-    val range = new Range(0.0, 6.2832)
+    val range = new Range(-10.0, 10.0)
     val steps = 80
     val surface: Shape = Builder.buildOrthonormal(new OrthonormalGrid(range, steps, range, steps), mapper).asInstanceOf[Shape]
     import surface._
